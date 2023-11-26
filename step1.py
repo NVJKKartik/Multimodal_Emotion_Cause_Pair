@@ -14,6 +14,7 @@ from utils.pre_data_bert import *
 from bert import modeling, optimization, tokenization
 
 
+tf.compat.v1.disable_eager_execution()
 
 FLAGS = tf.compat.v1.flags.FLAGS
 # >>>>>>>>>>>>>>>>>>>> For Model <<<<<<<<<<<<<<<<<<<< #
@@ -112,7 +113,7 @@ def build_subtasks(embeddings, placeholders):
             scope=scope)
         s_bert = model.get_pooled_output()
 
-        s_bert = tf.reshape(s_bert, [-1, FLAGS.max_doc_len, s_bert.shape[-1].value])
+        s_bert = tf.reshape(s_bert, [-1, FLAGS.max_doc_len, s_bert.shape[-1]])
         s_bert = s_bert * feature_mask # independent utterance representation from bert 
         return s_bert
 
@@ -128,7 +129,7 @@ def build_subtasks(embeddings, placeholders):
             token_type_ids=x_type_bert,
             scope=scope)
         s_bert = model.sequence_output
-        batch_size, n_hidden = tf.shape(s_bert)[0], s_bert.shape[-1].value
+        batch_size, n_hidden = tf.shape(s_bert)[0], s_bert.shape[-1]
 
         index = tf.reshape(tf.range(0, batch_size) * FLAGS.max_doc_len_bert, [batch_size, 1]) + s_idx_bert # [batch_size, FLAGS.max_doc_len]
         index = tf.reshape(index, [-1]) # [batch_size * FLAGS.max_doc_len]
@@ -150,7 +151,7 @@ def build_subtasks(embeddings, placeholders):
     
     def emo_cause_prediction(s_ec, is_training, name):
         s1 = tf.nn.dropout(s_ec, rate = 1 - (is_training * FLAGS.keep_prob2 + (1.-is_training)))
-        n_hidden = s1.shape[-1].value
+        n_hidden = s1.shape[-1]
         # print('num_hidden before prediction: ', n_hidden)
         s1 = tf.reshape(s1, [-1, n_hidden])
         pred_num = FLAGS.n_class
