@@ -325,7 +325,7 @@ def run():
                 print('############# run {} end ###############\n'.format(cur_run))
                 
                 if max_f1 > 0.0: # 防止有时训练不到位，F1始终为0
-                    save_model(sess, 'model_run{}.h5'.format(cur_run))
+                    model.save('model_run{}.keras'.format(cur_run))
 
                     # print('train pair_id: {}  pred_y: {}'.format(len(train_data.pair_id), len(tr_predy_tofile)))
                     # print('dev pair_id: {}  pred_y: {}'.format(len(dev_data.pair_id), len(de_predy_tofile)))
