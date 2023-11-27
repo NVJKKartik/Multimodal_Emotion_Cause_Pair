@@ -5,7 +5,6 @@ import tensorflow as tf
 print('\ntensorflow: {}\ntf.test.is_gpu_available: {}\n'.format(tf.__version__, tf.test.is_gpu_available()))
 import numpy as np
 import sys, os, time, codecs, pdb
-from tensorflow.keras.models import Model
 
 sys.path.append('./utils')
 from tf_funcs import *
@@ -255,6 +254,7 @@ def run():
         print_info()
         tf_config = tf.compat.v1.ConfigProto()  
         tf_config.gpu_options.allow_growth = True
+        saver = tf.compat.v1.train.Saver()
         with tf.compat.v1.Session(config=tf_config) as sess:
             while 1:
                 sess.run(tf.compat.v1.global_variables_initializer())
@@ -325,12 +325,12 @@ def run():
                 print('############# run {} end ###############\n'.format(cur_run))
                 
                 if max_f1 > 0.0: # 防止有时训练不到位，F1始终为0
-                    Model.save('model_run{}.keras'.format(cur_run), save_format='tf')
 
                     # print('train pair_id: {}  pred_y: {}'.format(len(train_data.pair_id), len(tr_predy_tofile)))
                     # print('dev pair_id: {}  pred_y: {}'.format(len(dev_data.pair_id), len(de_predy_tofile)))
                     # print('test pair_id: {}  pred_y: {}'.format(len(test_data.pair_id), len(te_predy_tofile)))
-                    
+                    save_path = saver.save(sess, "model/model.ckpt")
+                    print(f"Model saved in path: {save_path}")
                     if FLAGS.save_pair:
                         save_pair_path = save_dir + FLAGS.log_file_name.replace('.log', '_pair/')
                         if not os.path.exists(save_pair_path):
