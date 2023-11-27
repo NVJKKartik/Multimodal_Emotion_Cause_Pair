@@ -39,7 +39,7 @@ tf.compat.v1.app.flags.DEFINE_float('keep_prob2', 1.0, 'softmax layer dropout ke
 tf.compat.v1.app.flags.DEFINE_float('l2_reg', 1e-5, 'l2 regularization')
 tf.compat.v1.app.flags.DEFINE_float('keep_prob_v', 0.5, 'training dropout keep prob for visual features')
 tf.compat.v1.app.flags.DEFINE_float('keep_prob_a', 0.5, 'training dropout keep prob for audio features')
-tf.compat.v1.app.flags.DEFINE_integer('end_run', 21, 'end_run')
+tf.compat.v1.app.flags.DEFINE_integer('end_run', 2, 'end_run')
 tf.compat.v1.app.flags.DEFINE_integer('training_iter', 12, 'number of train iter')
 
 tf.compat.v1.app.flags.DEFINE_string('log_path', './log', '')
