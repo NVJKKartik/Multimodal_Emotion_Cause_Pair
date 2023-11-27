@@ -544,7 +544,7 @@ def run():
             write_data(save_dir1 + train_file_name, train_data, tr_predemo_tofile, tr_predcause_tofile)
             write_data(save_dir1 + dev_file_name, dev_data, de_predemo_tofile, de_predcause_tofile)
             write_data(save_dir1 + test_file_name, test_data, te_predemo_tofile, te_predcause_tofile)
-            save_path = saver.save(sess, "model/model.ckpt")
+            save_path = saver.save(sess, "model/step_1model.ckpt")
             print(f"Model saved in path: {save_path}")
 
             if FLAGS.choose_emocate:
