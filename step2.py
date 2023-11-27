@@ -5,6 +5,7 @@ import tensorflow as tf
 print('\ntensorflow: {}\ntf.test.is_gpu_available: {}\n'.format(tf.__version__, tf.test.is_gpu_available()))
 import numpy as np
 import sys, os, time, codecs, pdb
+from tensorflow.keras.models import save_model
 
 sys.path.append('./utils')
 from tf_funcs import *
@@ -324,9 +325,12 @@ def run():
                 print('############# run {} end ###############\n'.format(cur_run))
                 
                 if max_f1 > 0.0: # 防止有时训练不到位，F1始终为0
+                    save_model(sess, 'model_run{}.h5'.format(cur_run))
+
                     # print('train pair_id: {}  pred_y: {}'.format(len(train_data.pair_id), len(tr_predy_tofile)))
                     # print('dev pair_id: {}  pred_y: {}'.format(len(dev_data.pair_id), len(de_predy_tofile)))
                     # print('test pair_id: {}  pred_y: {}'.format(len(test_data.pair_id), len(te_predy_tofile)))
+                    
                     if FLAGS.save_pair:
                         save_pair_path = save_dir + FLAGS.log_file_name.replace('.log', '_pair/')
                         if not os.path.exists(save_pair_path):
@@ -347,7 +351,6 @@ def run():
             print('\ntest_eval_list: \n{}\nAvg: {}\nStd: {}\n\n'.format(test_eval_list_, list_round(test_eval_list_.mean(axis=0)), test_eval_list_.std(axis=0)))
             print('max_epoch:\n{}  {}  {}\n\n'.format(max_epoch_list, max(max_epoch_list), np.mean(max_epoch_list)))
             print('-----------------------------------------------------')
-            save_model(model, 'model_run{}.h5'.format(cur_run))
             cur_run = cur_run + 1
             
     print_time()
