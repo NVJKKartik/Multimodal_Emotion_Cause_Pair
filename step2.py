@@ -347,7 +347,7 @@ def run():
             print('\ntest_eval_list: \n{}\nAvg: {}\nStd: {}\n\n'.format(test_eval_list_, list_round(test_eval_list_.mean(axis=0)), test_eval_list_.std(axis=0)))
             print('max_epoch:\n{}  {}  {}\n\n'.format(max_epoch_list, max(max_epoch_list), np.mean(max_epoch_list)))
             print('-----------------------------------------------------')
-            
+            save_model(model, '{}_model.h5')
             cur_run = cur_run + 1
             
     print_time()
