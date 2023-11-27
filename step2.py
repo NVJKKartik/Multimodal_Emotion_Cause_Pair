@@ -10,7 +10,7 @@ sys.path.append('./utils')
 from tf_funcs import *
 from pre_data_bert import *
 
-
+tf.compat.v1.disable_eager_execution()
 FLAGS = tf.compat.v1.app.flags.FLAGS
 # >>>>>>>>>>>>>>>>>>>> For Model <<<<<<<<<<<<<<<<<<<< #
 ## embedding parameters ##
