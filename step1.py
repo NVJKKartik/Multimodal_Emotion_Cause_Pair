@@ -381,6 +381,7 @@ def run():
         print_info()
         tf_config = tf.compat.v1.ConfigProto()  
         tf_config.gpu_options.allow_growth = True # 程序按需申请内存
+        saver = tf.compat.v1.train.Saver()
         with tf.compat.v1.Session(config=tf_config) as sess:
             init_from_bert_checkpoint()
             sess.run(tf.compat.v1.global_variables_initializer())
@@ -537,11 +538,14 @@ def run():
             dev_file_name = 'run{}_dev.txt'.format(cur_run)
             test_file_name = 'run{}_test.txt'.format(cur_run)
             save_dir1 = save_dir + FLAGS.log_file_name.replace('.log', '/')
+            
             if not os.path.exists(save_dir1):
                 os.makedirs(save_dir1)
             write_data(save_dir1 + train_file_name, train_data, tr_predemo_tofile, tr_predcause_tofile)
             write_data(save_dir1 + dev_file_name, dev_data, de_predemo_tofile, de_predcause_tofile)
             write_data(save_dir1 + test_file_name, test_data, te_predemo_tofile, te_predcause_tofile)
+            save_path = saver.save(sess, "model/model.ckpt")
+            print(f"Model saved in path: {save_path}")
 
             if FLAGS.choose_emocate:
                 emo_emocate_list.append(te_max_f1_emo_emocate)
