@@ -329,7 +329,7 @@ def run():
                     # print('train pair_id: {}  pred_y: {}'.format(len(train_data.pair_id), len(tr_predy_tofile)))
                     # print('dev pair_id: {}  pred_y: {}'.format(len(dev_data.pair_id), len(de_predy_tofile)))
                     # print('test pair_id: {}  pred_y: {}'.format(len(test_data.pair_id), len(te_predy_tofile)))
-                    save_path = saver.save(sess, "model/model.ckpt")
+                    save_path = saver.save(sess, "model/step_2model.ckpt")
                     print(f"Model saved in path: {save_path}")
                     if FLAGS.save_pair:
                         save_pair_path = save_dir + FLAGS.log_file_name.replace('.log', '_pair/')
