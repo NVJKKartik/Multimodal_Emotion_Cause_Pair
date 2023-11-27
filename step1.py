@@ -43,7 +43,7 @@ tf.compat.v1.flags.DEFINE_integer('n_hidden', 100, 'number of hidden unit')
 tf.compat.v1.flags.DEFINE_integer('n_class', 2, 'number of distinct class')
 tf.compat.v1.flags.DEFINE_string('real_time', '', 'real_time conversation')
 # >>>>>>>>>>>>>>>>>>>> For Training <<<<<<<<<<<<<<<<<<<< #
-tf.compat.v1.flags.DEFINE_integer('batch_size', 8, 'batch size')
+tf.compat.v1.flags.DEFINE_integer('batch_size', 2, 'batch size')
 tf.compat.v1.flags.DEFINE_float('learning_rate', 1e-5, 'learning rate')
 tf.compat.v1.flags.DEFINE_integer('bert_start_idx', 20, 'bert para')
 tf.compat.v1.flags.DEFINE_integer('bert_end_idx', 219, 'bert para')
