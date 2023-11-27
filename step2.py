@@ -105,7 +105,7 @@ def build_model(embeddings, placeholders, RNN=biLSTM):
     s = get_s(inputs, sen_len, name='_word_encode') # [-1, 2 * h2]
     s = concate_feature(s, x_v, x_a)
 
-    dim_s = s.shape[-1].value
+    dim_s = s.shape[-1]
     s = tf.reshape(s, [-1, 2 * dim_s])
     if FLAGS.choose_emocate:
         s = tf.concat([s, dis, x_emocate], 1)
@@ -113,7 +113,7 @@ def build_model(embeddings, placeholders, RNN=biLSTM):
         s = tf.concat([s, dis], 1)
 
     s1 = tf.nn.dropout(s, rate=1 - (is_training * FLAGS.keep_prob2 + (1.-is_training)))
-    n_hidden = s.shape[-1].value
+    n_hidden = s.shape[-1]
     w_pair = get_weight_varible('softmax_w_pair', [n_hidden, FLAGS.n_class])
     b_pair = get_weight_varible('softmax_b_pair', [FLAGS.n_class])
     pred_pair = tf.nn.softmax(tf.matmul(s1, w_pair) + b_pair)
