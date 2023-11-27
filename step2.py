@@ -5,7 +5,7 @@ import tensorflow as tf
 print('\ntensorflow: {}\ntf.test.is_gpu_available: {}\n'.format(tf.__version__, tf.test.is_gpu_available()))
 import numpy as np
 import sys, os, time, codecs, pdb
-from tensorflow.keras.models import save_model
+from tensorflow.keras.models import Model
 
 sys.path.append('./utils')
 from tf_funcs import *
